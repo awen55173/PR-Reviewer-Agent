@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.db
+.env
+.pytest_cache/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE / 系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 测试与构建
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# 日志与其他数据库
+*.log
+logs/
+*.sqlite
+*.sqlite3
