@@ -159,9 +159,20 @@ class ReviewHarness:
         else:
             collaboration = reviewer_summary or self._persisted_collaboration_summary(state["task_id"])
             run_mode, components, execution = {}, [], {}
+        failed_model_calls = int(execution.get("failed_model_calls") or 0)
+        summary = self._summary(findings, len(parsed.files), risk)
+        if not findings and failed_model_calls:
+            # A review whose agents never returned a usable answer is not a
+            # clean result. Say so instead of reporting "no actionable issue".
+            risk = "medium"
+            summary = (
+                "Reviewed %d file(s), but %d model call(s) failed; the review "
+                "is incomplete and no clean conclusion can be drawn."
+                % (len(parsed.files), failed_model_calls)
+            )
         report = ReviewReport(
             repository=state["repository"], pull_request=state.get("pull_request"),
-            summary=self._summary(findings, len(parsed.files), risk), risk=risk,
+            summary=summary, risk=risk,
             findings=findings, files_reviewed=parsed.files, reviewer=self.reviewer.name,
             collaboration=collaboration,
             run_mode=run_mode, components=components, execution=execution,

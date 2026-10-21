@@ -189,13 +189,27 @@ class BoundedRole:
                 self.name, "autonomous_decision", step=step, action=kind,
                 tool=str(action.get("tool", "")), reason=str(action.get("reason", ""))[:500],
             )
-            if kind == "final":
+            if kind == "final" or self._is_final_payload(kind, action):
+                if kind != "final":
+                    # Some providers omit or invent the action name even when
+                    # the payload is the phase's final answer. Salvage it.
+                    ledger.trace(
+                        self.name, "action_normalized", step=step,
+                        action=kind or "<missing>",
+                    )
+                    action["action"] = "final"
                 action["_observations"] = observations
                 action["_steps"] = step
                 ledger.trace(self.name, "finished", step=step)
                 return action
             if kind != "tool":
                 raise ValueError("%s returned an invalid action" % self.name)
+            if not tools.names():
+                raise ValueError(
+                    "%s requested tool %r but no tools are available" % (
+                        self.name, str(action.get("tool", "")),
+                    )
+                )
             tool_name = str(action.get("tool", ""))
             arguments = action.get("arguments") or {}
             try:
@@ -222,6 +236,19 @@ class BoundedRole:
             )
         ledger.trace(self.name, "budget_exhausted", budget="steps")
         raise RuntimeBudgetExceeded("%s step budget exhausted" % self.name)
+
+    FINAL_PAYLOAD_KEYS = frozenset({
+        "findings", "delegations", "revision_requests", "decisions",
+        "accepted_finding_indices", "confidence_adjustments",
+        "critic_objective", "resolution_summary", "reasoning_summary",
+    })
+
+    @classmethod
+    def _is_final_payload(cls, kind: str, action: Dict[str, Any]) -> bool:
+        """Detect a final answer whose action field was renamed or omitted."""
+        if kind == "tool" or not isinstance(action, dict):
+            return False
+        return bool(cls.FINAL_PAYLOAD_KEYS.intersection(action))
 
 
 def _parse_findings(result: dict, parsed: ParsedDiff, role: str) -> List[Finding]:

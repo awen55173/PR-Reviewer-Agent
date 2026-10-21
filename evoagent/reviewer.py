@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional
 
 from .diff_parser import ParsedDiff
 from .finding_identity import canonical_cwe, canonical_identity
+from .llm import parse_json_object
 from .models import Finding, Severity
 
 
@@ -238,8 +239,8 @@ class OpenAICompatibleReviewer(Reviewer):
             raise RuntimeError("%s review request failed: %s" % (self.provider, exc)) from exc
         try:
             content = body["choices"][0]["message"]["content"]
-            result = json.loads(content)
-        except (KeyError, IndexError, TypeError, json.JSONDecodeError) as exc:
+            result = parse_json_object(content)
+        except (KeyError, IndexError, TypeError, ValueError) as exc:
             raise RuntimeError("%s returned an invalid JSON review response" % self.provider) from exc
         if not isinstance(result, dict):
             raise RuntimeError("%s returned a non-object JSON response" % self.provider)

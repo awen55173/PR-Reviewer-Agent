@@ -92,6 +92,19 @@ class HierarchicalClient:
         raise AssertionError((role, task))
 
 
+class MissingActionClient(HierarchicalClient):
+    """Mimics providers that omit the action discriminator despite the prompt."""
+
+    def complete_json(self, role, system, user, ledger=None, max_tokens=None):
+        value = super().complete_json(
+            role, system, user, ledger=ledger, max_tokens=max_tokens,
+        )
+        if role == "lead":
+            value = dict(value)
+            value.pop("action", None)
+        return value
+
+
 class LeadWorkerCollaborationTests(unittest.TestCase):
     def setUp(self):
         handle, self.path = tempfile.mkstemp(suffix=".db")
@@ -158,6 +171,21 @@ class LeadWorkerCollaborationTests(unittest.TestCase):
         self.assertGreater(
             resumed.collaboration_summary("task")["execution"]["llm_calls"], 0
         )
+
+    def test_missing_action_is_normalized_to_final(self):
+        reviewer = AgenticReviewer(self.store, MissingActionClient())
+
+        findings = reviewer.review_with_context(
+            "task", DIFF, parse_unified_diff(DIFF), "org/repo"
+        )
+
+        self.assertIn("SEC-LEAD-REVISION", {item.rule_id for item in findings})
+        lead_traces = reviewer.collaboration_summary("task")[
+            "execution"
+        ]["agent_traces"]["lead"]
+        self.assertTrue(any(
+            item.get("event") == "action_normalized" for item in lead_traces
+        ))
 
     def test_gate_decisions_are_archived_for_future_agent_recall(self):
         memory = MemoryManager(self.store)
