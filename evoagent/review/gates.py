@@ -1,6 +1,6 @@
 """Deterministic finding and release gates shared by all run modes."""
 from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Tuple
+from typing import Any, Dict, Iterable, List
 
 from ..core.diff_parser import ParsedDiff
 from ..core.models import Finding, Severity

@@ -1,7 +1,7 @@
 """Agentic execution mode and product component taxonomy."""
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, Iterable, Optional
+from typing import Any, Dict, Optional
 
 from .models import ComponentKind
 

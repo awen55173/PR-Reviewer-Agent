@@ -14,13 +14,16 @@ import re
 from typing import Any, Dict, Iterable, List, Set
 
 from ..core.diff_parser import parse_unified_diff
-from ..evaluation.evaluation_harness import RULE_TO_CWE, dataset_fingerprint, load_jsonl, one_to_one_match
-from .engine import DEFAULT_PROMPT, EvolutionEngine, RegressionEvaluator
 from ..core.models import Finding
-from ..review.reviewer import LocalRuleReviewer, Reviewer
+from ..evaluation.evaluation_harness import (
+    dataset_fingerprint,
+    load_jsonl,
+    one_to_one_match,
+)
 from ..review.review_rules import ContextRuleReviewer
+from ..review.reviewer import LocalRuleReviewer, Reviewer
 from ..storage.store import TaskStore, utc_now
-
+from .engine import DEFAULT_PROMPT, EvolutionEngine, RegressionEvaluator
 
 FOCUS_RULE = re.compile(r"\[focus-rule:([A-Z][A-Z0-9_-]{1,79})\]")
 

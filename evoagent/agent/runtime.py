@@ -8,9 +8,9 @@ Tool-using model loops live in ``agentic_core.BoundedRole``. Persistence remains
 in the application store so a worker restart does not depend on a
 framework-owned checkpoint format.
 """
+import time
 from contextlib import nullcontext
 from dataclasses import dataclass, field
-import time
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 

@@ -6,12 +6,11 @@ import threading
 import uuid
 from typing import Any, Callable, Dict, Optional
 
+from ..agent.skills import SKILL_NAME, AgentSkill
 from ..core.diff_parser import parse_unified_diff
-from .engine import RegressionEvaluator
 from ..review.reviewer import Reviewer
-from ..agent.skills import AgentSkill, SKILL_NAME
 from ..storage.store import utc_now
-
+from .engine import RegressionEvaluator
 
 ARTIFACT_SCHEMA_VERSION = 2
 RULE_ID = re.compile(r"[A-Z][A-Z0-9_-]{1,79}")

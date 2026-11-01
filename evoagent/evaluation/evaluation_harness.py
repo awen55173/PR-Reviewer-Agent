@@ -7,11 +7,10 @@ from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from ..core.diff_parser import parse_unified_diff
-from ..core.finding_identity import RULE_TO_CWE, canonical_identity
-from ..core.models import Finding, Severity
-from ..review.reviewer import Reviewer
+from ..core.finding_identity import canonical_identity
+from ..core.models import Finding
 from ..repair.verifier import RepairVerifier
-
+from ..review.reviewer import Reviewer
 
 SEVERITY_RANK = {"low": 0, "medium": 1, "high": 2, "critical": 3}
 

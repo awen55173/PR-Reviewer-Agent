@@ -1,5 +1,5 @@
-import json
 import hashlib
+import json
 import re
 import socket
 import urllib.error
@@ -7,9 +7,9 @@ import urllib.request
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
+from ..agent.llm import parse_json_object
 from ..core.diff_parser import ParsedDiff
 from ..core.finding_identity import canonical_cwe, canonical_identity
-from ..agent.llm import parse_json_object
 from ..core.models import Finding, Severity
 
 

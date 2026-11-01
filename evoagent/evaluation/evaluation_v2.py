@@ -1,20 +1,23 @@
 """Product-backed agentic evaluation suite for labelled PRs."""
-from collections import Counter
 import json
 import random
 import time
+from collections import Counter
 from typing import Any, Callable, Dict, List, Mapping, Optional
 
 from ..agent.agentic_core import AgenticReviewer
-from .evaluation_harness import EndToEndEvaluationHarness, dataset_fingerprint, one_to_one_match
-from ..core.finding_identity import canonical_identity
 from ..agent.llm import JsonChatClient
-from ..core.models import Finding, Severity
-from ..review.reviewer import LocalRuleReviewer, Reviewer
-from ..review.review_rules import ContextRuleReviewer
 from ..agent.skills import AgentSkill
 from ..agent.telemetry import ExecutionLedger
-
+from ..core.finding_identity import canonical_identity
+from ..core.models import Finding, Severity
+from ..review.review_rules import ContextRuleReviewer
+from ..review.reviewer import LocalRuleReviewer, Reviewer
+from .evaluation_harness import (
+    EndToEndEvaluationHarness,
+    dataset_fingerprint,
+    one_to_one_match,
+)
 
 REQUIRED_ARMS = (
     "multi-llm-no-critic", "full-agentic",

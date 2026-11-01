@@ -6,10 +6,9 @@ import uuid
 from typing import Any, Callable, Dict, List, Optional
 
 from ..core.diff_parser import parse_unified_diff
-from ..evaluation.evaluation_harness import one_to_one_match
 from ..core.finding_identity import canonical_identity, is_valid_cwe
+from ..evaluation.evaluation_harness import one_to_one_match
 from ..storage.store import utc_now
-
 
 DEFAULT_PROMPT = (
     "Review the unified diff. Return JSON findings with severity, fix and test. "

@@ -1,8 +1,8 @@
 """Per-review accounting for real model/tool calls and complete agent traces."""
-from dataclasses import asdict, dataclass, field
 import threading
 import time
-from typing import Any, Dict, List, Optional
+from dataclasses import asdict, dataclass
+from typing import Any, Dict, List
 
 
 @dataclass

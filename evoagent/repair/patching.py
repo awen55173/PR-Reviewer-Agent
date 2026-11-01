@@ -1,14 +1,13 @@
 """LLM unified-patch generation with structural and sandbox verification."""
-from dataclasses import dataclass
-from datetime import datetime, timezone
 import json
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from typing import List
 
 from ..agent.llm import JsonChatClient
 from ..agent.telemetry import ExecutionLedger
 from .verifier import RepairVerifier
-
 
 PATCH_PROMPT = """You are the Fix Agent. Produce one minimal unified diff that fixes the supplied
 verified findings without unrelated changes. Patch paths must be among allowed_paths. Preserve

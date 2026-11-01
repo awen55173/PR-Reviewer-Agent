@@ -3,32 +3,37 @@ import uuid
 from typing import Any, Dict, Optional
 
 from ..agent.agentic_core import AgenticReviewer
+from ..agent.context_manager import ContextManager
+from ..agent.harness import ReviewHarness
+from ..agent.llm import JsonChatClient
+from ..agent.memory import MemoryManager
+from ..agent.skills import AgentSkill, SkillRegistry
 from ..api.auth import AuthManager
 from ..core.config import Settings
-from ..agent.context_manager import ContextManager
+from ..core.models import TaskState, TraceEvent
+from ..core.modes import RunMode
 from ..evolution.engine import EvolutionEngine
 from ..evolution.evolution_v2 import RootCauseEvolutionGenerator
-from ..repair.fixer import SafeFixer
-from ..repair.patching import SuggestionOnlyFixer, VerifiedPatchFixer
+from ..evolution.skill_evolution import (
+    AgentSkillReplayReviewer,
+    SkillEvolutionEngine,
+    validate_artifact,
+)
 from ..integrations.github import GitHubAppAuthenticator, GitHubClient
-from ..agent.harness import ReviewHarness
 from ..integrations.metrics import metrics
-from ..agent.llm import JsonChatClient
-from ..core.modes import RunMode
-from ..agent.memory import MemoryManager
-from ..core.models import TaskState, TraceEvent
 from ..integrations.observability import AlertManager, Observability
-from ..storage.postgres_store import create_store
+from ..repair.patching import SuggestionOnlyFixer, VerifiedPatchFixer
+from ..repair.verifier import RepairVerifier
 from ..review.report import to_markdown
 from ..review.reviewer import (
-    OpenAICompatibleReviewer, ReliabilityRuleReviewer, SecurityRuleReviewer,
+    OpenAICompatibleReviewer,
+    ReliabilityRuleReviewer,
+    SecurityRuleReviewer,
 )
-from ..agent.skills import AgentSkill, SkillRegistry
-from ..evolution.skill_evolution import AgentSkillReplayReviewer, SkillEvolutionEngine, validate_artifact
+from ..storage.postgres_store import create_store
 from ..storage.store import utc_now
-from .task_queue import PermanentTaskError, TaskQueue
 from .rollout import ReleaseManager
-from ..repair.verifier import RepairVerifier
+from .task_queue import PermanentTaskError, TaskQueue
 
 
 class ReviewService:

@@ -1,5 +1,4 @@
 """Hierarchical four-role review engine with a Lead and bounded worker roles."""
-from concurrent.futures import ThreadPoolExecutor, as_completed
 import ast
 import hashlib
 import json
@@ -7,20 +6,20 @@ import os
 import textwrap
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, Iterable, List, Optional, Set
 
 from ..core.diff_parser import ParsedDiff
-from .context_manager import ContextManager
-from ..review.gates import FindingGate
 from ..core.finding_identity import canonical_identity
-from .llm import JsonChatClient
 from ..core.models import ComponentKind, Finding, Severity
 from ..core.modes import component, resolve_mode
-from .repository_tools import RepositoryToolSuite
+from ..review.gates import FindingGate
 from ..review.reviewer import LocalRuleReviewer, Reviewer
+from .context_manager import ContextManager
+from .llm import JsonChatClient
+from .repository_tools import RepositoryToolSuite
 from .runtime import AgentTool, RuntimeBudgetExceeded, ToolRegistry
 from .telemetry import ExecutionLedger
-
 
 LEAD_PROMPT = """You are the Lead Agent for a hierarchical code review. You own decomposition,
 delegation, revision requests and final synthesis. Security, Correctness/Reliability and Critic are

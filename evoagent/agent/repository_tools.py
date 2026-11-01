@@ -3,20 +3,18 @@ import ast
 import hashlib
 import json
 import os
-from pathlib import Path
-import re
+import shlex
 import shutil
 import subprocess
 import sys
 import tempfile
-import shlex
 import time
-from typing import Any, Dict, Iterable, List, Optional, Set
+from pathlib import Path
+from typing import Any, Dict, Iterable, Optional, Set
 
 from ..core.diff_parser import ParsedDiff
 from .runtime import AgentTool, ToolRegistry
 from .telemetry import ExecutionLedger
-
 
 SKIP_DIRS = {".git", ".hg", ".svn", "node_modules", "dist", "build", ".venv", "venv"}
 CONFIG_NAMES = {

@@ -1,12 +1,11 @@
 """Tenant-aware working, episodic and semantic memory for review agents."""
-from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import re
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 from ..storage.store import utc_now
-
 
 TOKEN = re.compile(r"[A-Za-z0-9_./:-]{2,}")
 VALID_SCOPES = {"working", "episodic", "semantic", "procedural"}

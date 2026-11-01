@@ -1,14 +1,14 @@
 """Compilation and test gates for generated repairs."""
+import io
 import os
 import shlex
 import subprocess
 import tempfile
 import time
-import zipfile
-import io
 import tokenize
+import zipfile
 from io import BytesIO
-from typing import Dict, Iterable
+from typing import Dict
 
 
 class RepairVerifier:

@@ -9,7 +9,6 @@ from typing import Any, Dict, List, Optional
 
 from .telemetry import ExecutionLedger
 
-
 _FENCED_JSON = re.compile(r"\A```[A-Za-z0-9_-]*\s*\n?(.*?)\n?```\Z", re.DOTALL)
 _BOM = chr(0xFEFF)
 

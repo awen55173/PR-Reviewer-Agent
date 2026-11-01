@@ -6,7 +6,6 @@ from typing import Any, Dict, List
 from ..agent.llm import JsonChatClient
 from ..agent.telemetry import ExecutionLedger
 
-
 ROOT_CAUSE_PROMPT = """You analyze failed code-review trajectories. Cluster false positives,
 missed issues, bad fixes and execution failures; identify root causes; then propose only safe
 configuration changes. Never propose or emit production Python/source-code edits. Return JSON:

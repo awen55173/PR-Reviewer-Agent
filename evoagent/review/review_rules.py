@@ -1,8 +1,8 @@
 """Deterministic supplemental review rules used by evaluation and replay."""
 import re
 
-from ..core.models import Finding, Severity
 from ..core.finding_identity import canonical_cwe
+from ..core.models import Finding, Severity
 from .reviewer import Reviewer
 
 

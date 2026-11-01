@@ -15,7 +15,6 @@ import yaml
 
 from ..review.reviewer import Reviewer
 
-
 SKILL_NAME = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")
 MAX_SKILL_MD_BYTES = 128 * 1024
 MAX_RESOURCE_BYTES = 1024 * 1024

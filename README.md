@@ -240,6 +240,12 @@ Invoke-RestMethod https://<公网域名>/health
 
 `POST /v1/reviews` 的 `diff` 最大默认 1 MiB；单任务默认最多 8 步、120 秒。可通过环境变量调整，详见 `.env.example`。
 
+HTTP 层基于 FastAPI + uvicorn，所有路由集中注册在 `evoagent/api/server.py` 的 `create_app()` 末尾。约定如下：
+
+- 错误响应统一为 `{"error": "..."}`：参数或 JSON 错误 `400`，未登录或 Token 无效 `401`，权限不足 `403`，资源不存在 `404`，请求体超限 `413`，服务内部错误 `500`；
+- 认证与权限通过 `authorize(<permission>)` 依赖统一声明，新增接口时只需在参数中声明 `Reader` / `Reviewer` / `Fixer` / `Manager` / `Auditor`；
+- 请求体由 Pydantic 模型校验。
+
 ## 架构
 
 ```text

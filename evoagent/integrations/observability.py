@@ -2,8 +2,6 @@
 import logging
 from contextlib import contextmanager
 from contextvars import ContextVar
-from typing import Optional
-
 
 trace_id_var: ContextVar[str] = ContextVar("trace_id", default="")
 logger = logging.getLogger("evoagent")
@@ -19,7 +17,9 @@ class Observability:
             from opentelemetry.sdk.trace.export import BatchSpanProcessor
             provider = TracerProvider(resource=Resource.create({"service.name": service_name}))
             if endpoint:
-                from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+                from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
+                    OTLPSpanExporter,
+                )
                 provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=endpoint)))
             trace.set_tracer_provider(provider)
             self.tracer = trace.get_tracer(service_name)

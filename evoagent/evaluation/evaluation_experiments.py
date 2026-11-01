@@ -5,20 +5,19 @@ import os
 import random
 import re
 import statistics
-from typing import Any, Callable, Dict, Iterable, List, Optional
+from typing import Callable, Iterable, List, Optional
 
 from ..core.diff_parser import parse_unified_diff
+from ..core.models import Finding, Severity
+from ..evolution.skill_evolution import SkillEvolutionEngine, validate_artifact
+from ..review.review_rules import ContextRuleReviewer
+from ..review.reviewer import CompositeReviewer, LocalRuleReviewer, Reviewer
 from .evaluation_harness import FixtureRepairer, load_jsonl, one_to_one_match
 from .evaluation_v2 import (
     ProductionEvaluationHarness,
     paired_bootstrap_comparison,
     validate_real_dataset,
 )
-from ..review.reviewer import CompositeReviewer, LocalRuleReviewer, Reviewer
-from ..core.models import Finding, Severity
-from ..review.review_rules import ContextRuleReviewer
-from ..evolution.skill_evolution import SkillEvolutionEngine, validate_artifact
-
 
 DEFAULT_CONTROLLED_DATASET = os.path.abspath(os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "evaluation_data", "pr_diff_100.jsonl",

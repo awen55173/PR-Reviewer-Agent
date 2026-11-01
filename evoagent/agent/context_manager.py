@@ -5,14 +5,13 @@ maps every hunk to a compact semantic record, ranks hunks for the active role, a
 reduces the result to a bounded model-facing view.  Historical memories and tool
 observations are treated as untrusted context, never as proof.
 """
-from dataclasses import dataclass
 import hashlib
 import json
 import math
 import re
 import threading
+from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
-
 
 HUNK_HEADER = re.compile(
     r"^@@\s+-(?P<old>\d+)(?:,(?P<old_count>\d+))?\s+"

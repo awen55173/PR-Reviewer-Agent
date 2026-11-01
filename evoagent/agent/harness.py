@@ -3,13 +3,22 @@ import threading
 from typing import Any, Dict, Optional, TypedDict
 
 from ..core.diff_parser import ParsedDiff, parse_unified_diff
-from ..core.models import ChangedLine, Finding, ReviewReport, Severity, TaskState, TraceEvent
-from ..review.reviewer import Reviewer
-from .runtime import (
-    AgentRuntime, RuntimeBudgetExceeded, RuntimeCancelled, RuntimeNode,
+from ..core.models import (
+    ChangedLine,
+    Finding,
+    ReviewReport,
+    Severity,
+    TaskState,
+    TraceEvent,
 )
+from ..review.reviewer import Reviewer
 from ..storage.store import TaskStore, utc_now
-
+from .runtime import (
+    AgentRuntime,
+    RuntimeBudgetExceeded,
+    RuntimeCancelled,
+    RuntimeNode,
+)
 
 ALLOWED = {
     TaskState.PENDING: {TaskState.PLANNING, TaskState.FAILED, TaskState.CANCELLED},

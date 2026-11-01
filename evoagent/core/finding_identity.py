@@ -3,7 +3,6 @@
 import re
 from typing import Any
 
-
 # The evaluator compares canonical CWE identities, not reviewer-specific rule names.
 RULE_TO_CWE = {
     "SEC-EVAL": "CWE-95",
