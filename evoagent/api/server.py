@@ -8,13 +8,13 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any, Dict
 
-from .config import Settings
+from ..core.config import Settings
 from .auth import Principal
-from .github import verify_signature
-from .metrics import metrics
-from .modes import public_taxonomy, resolve_mode
-from .report import to_markdown
-from .service import ReviewService
+from ..integrations.github import verify_signature
+from ..integrations.metrics import metrics
+from ..core.modes import public_taxonomy, resolve_mode
+from ..review.report import to_markdown
+from ..services.review_service import ReviewService
 
 
 TASK = re.compile(r"^/v1/tasks/([0-9a-f-]+)$")
@@ -28,7 +28,7 @@ SKILL_ARTIFACT_VERSIONS = re.compile(r"^/v1/skill-evolution/([a-z0-9_-]+)/versio
 SKILL_ARTIFACT_ACTIVATE = re.compile(
     r"^/v1/skill-evolution/([a-z0-9_-]+)/versions/(\d+)/activate$"
 )
-WEB_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "web"))
+WEB_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "web"))
 
 
 class ApiHandler(BaseHTTPRequestHandler):

@@ -13,20 +13,20 @@ import os
 import re
 from typing import Any, Dict, Iterable, List, Set
 
-from .diff_parser import parse_unified_diff
-from .evaluation_harness import RULE_TO_CWE, dataset_fingerprint, load_jsonl, one_to_one_match
-from .evolution import DEFAULT_PROMPT, EvolutionEngine, RegressionEvaluator
-from .models import Finding
-from .reviewer import LocalRuleReviewer, Reviewer
-from .review_rules import ContextRuleReviewer
-from .store import TaskStore, utc_now
+from ..core.diff_parser import parse_unified_diff
+from ..evaluation.evaluation_harness import RULE_TO_CWE, dataset_fingerprint, load_jsonl, one_to_one_match
+from .engine import DEFAULT_PROMPT, EvolutionEngine, RegressionEvaluator
+from ..core.models import Finding
+from ..review.reviewer import LocalRuleReviewer, Reviewer
+from ..review.review_rules import ContextRuleReviewer
+from ..storage.store import TaskStore, utc_now
 
 
 FOCUS_RULE = re.compile(r"\[focus-rule:([A-Z][A-Z0-9_-]{1,79})\]")
 
 
 DEFAULT_PROMPT_DATASET = os.path.abspath(os.path.join(
-    os.path.dirname(os.path.dirname(__file__)),
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
     "evaluation_data", "prompt_evolution_130.jsonl",
 ))
 

@@ -13,7 +13,7 @@ from typing import Dict, List, Mapping, Optional, Tuple
 
 import yaml
 
-from .reviewer import Reviewer
+from ..review.reviewer import Reviewer
 
 
 SKILL_NAME = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")

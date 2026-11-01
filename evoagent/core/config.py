@@ -14,7 +14,8 @@ def load_dotenv(paths: Optional[Iterable[str]] = None) -> None:
     latter to remain compatible with existing local setups while keeping the
     conventional root-level ``.env`` as the recommended location.
     """
-    package_dir = os.path.dirname(os.path.abspath(__file__))
+    # This module lives in ``evoagent/core/``; the package root is one level up.
+    package_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     project_root = os.path.dirname(package_dir)
     candidates = list(paths) if paths is not None else [
         os.path.join(project_root, ".env"),

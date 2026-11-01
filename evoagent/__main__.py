@@ -1,4 +1,4 @@
-from .api import run
+from .api.server import run
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timezone
 from typing import Dict, List
 
-from .github import GitHubClient
+from ..integrations.github import GitHubClient
 from .verifier import RepairVerifier
 
 

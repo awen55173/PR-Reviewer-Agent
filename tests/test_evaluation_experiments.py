@@ -1,20 +1,20 @@
 import json
 import unittest
 
-from evoagent.diff_parser import parse_unified_diff
-from evoagent.evaluation_experiments import (
+from evoagent.core.diff_parser import parse_unified_diff
+from evoagent.evaluation.evaluation_experiments import (
     AccuracyExperimentSuite,
     load_controlled_pr_cases,
     SkillEvolutionExperimentSuite,
     prepare_controlled_experiment_cases,
 )
-from evoagent.evaluation_v2 import (
+from evoagent.evaluation.evaluation_v2 import (
     FairAblationSuite,
     experiment_reviewer_factories,
 )
-from evoagent.models import Finding, Severity
-from evoagent.reviewer import Reviewer
-from evoagent.skill_evolution import SkillEvolutionEngine
+from evoagent.core.models import Finding, Severity
+from evoagent.review.reviewer import Reviewer
+from evoagent.evolution.skill_evolution import SkillEvolutionEngine
 
 
 DIFF = (

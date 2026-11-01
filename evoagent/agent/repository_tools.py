@@ -13,7 +13,7 @@ import shlex
 import time
 from typing import Any, Dict, Iterable, List, Optional, Set
 
-from .diff_parser import ParsedDiff
+from ..core.diff_parser import ParsedDiff
 from .runtime import AgentTool, ToolRegistry
 from .telemetry import ExecutionLedger
 

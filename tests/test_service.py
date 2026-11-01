@@ -2,8 +2,8 @@ import os
 import tempfile
 import unittest
 
-from evoagent.config import Settings
-from evoagent.service import ReviewService
+from evoagent.core.config import Settings
+from evoagent.services.review_service import ReviewService
 from agentic_fake import enable_agentic_service
 
 

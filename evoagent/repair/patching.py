@@ -5,8 +5,8 @@ import json
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from .llm import JsonChatClient
-from .telemetry import ExecutionLedger
+from ..agent.llm import JsonChatClient
+from ..agent.telemetry import ExecutionLedger
 from .verifier import RepairVerifier
 
 

@@ -5,15 +5,15 @@ import random
 import time
 from typing import Any, Callable, Dict, List, Mapping, Optional
 
-from .agentic_core import AgenticReviewer
+from ..agent.agentic_core import AgenticReviewer
 from .evaluation_harness import EndToEndEvaluationHarness, dataset_fingerprint, one_to_one_match
-from .finding_identity import canonical_identity
-from .llm import JsonChatClient
-from .models import Finding, Severity
-from .reviewer import LocalRuleReviewer, Reviewer
-from .review_rules import ContextRuleReviewer
-from .skills import AgentSkill
-from .telemetry import ExecutionLedger
+from ..core.finding_identity import canonical_identity
+from ..agent.llm import JsonChatClient
+from ..core.models import Finding, Severity
+from ..review.reviewer import LocalRuleReviewer, Reviewer
+from ..review.review_rules import ContextRuleReviewer
+from ..agent.skills import AgentSkill
+from ..agent.telemetry import ExecutionLedger
 
 
 REQUIRED_ARMS = (

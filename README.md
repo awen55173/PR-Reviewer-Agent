@@ -243,23 +243,25 @@ Invoke-RestMethod https://<公网域名>/health
 ## 架构
 
 ```text
-HTTP / GitHub Webhook
+HTTP / GitHub Webhook                      api/server.py、api/auth.py
         │
         ▼
- ReviewService ── TaskStore(SQLite / PostgreSQL)
-        │
+ ReviewService ── TaskStore                services/review_service.py ── storage/store.py、storage/postgres_store.py
+        │            (SQLite / PostgreSQL)
         ▼
-        ReviewHarness (EvoAgent Runtime / checkpoint / resume / budget / trace)
+        ReviewHarness                      agent/harness.py + agent/runtime.py
+        │  (Runtime / checkpoint / resume / budget / trace)
         │
-        ├── DiffParser
-        ├── Redis Streams / ACK / lease / retry / DLQ
-        └── Agentic Lead/Workers
+        ├── DiffParser                     core/diff_parser.py
+        ├── Redis Streams / ACK / lease / retry / DLQ    services/task_queue.py
+        └── Agentic Lead/Workers           agent/agentic_core.py
               ├── Lead：一次任务分配并判定风险；高风险时最多请求一轮返工；最终综合
               ├── Security Worker：输入/权限/敏感数据/危险调用链
               ├── Correctness/Reliability Worker：状态/异常/并发/资源/兼容性
               ├── Critic Worker：一次性盲审、反例与证据挑战
-              └── Gates：格式、证据、置信度和发布门禁
+              └── Gates：格式、证据、置信度和发布门禁        review/gates.py
 ```
+
 
 ## Skills 的定位与编写方式
 
@@ -280,7 +282,7 @@ skills/<skill-name>/
 
 frontmatter 后的 Markdown 正文才是 Skill 的核心。正文会在 Lead 选中 Skill 后注入对应 worker 的上下文，因此应写成可执行的审查协议，而不是几条标签式提示词。推荐至少包含：任务边界、适用/不适用范围、逐步调查流程、边界条件清单、证据与严重性标准、误报排除规则、修复与验证要求，以及稳定的输出字段。
 
-Skill 可以附带文本资源（例如规范摘录、查询模板或测试清单）。运行时会把资源列入 Skill 包，并仅为已选中的 Skill 注册 `read_skill_resource`；资源不能通过路径穿越或符号链接逃逸出包目录。真正的工具连接由运行时的 `RepositoryToolSuite`、外部集成或插件提供，Skill 只声明“可以使用哪些已经存在的工具”。
+Skill 可以附带文本资源（例如规范摘录、查询模板或测试清单）。运行时会把资源列入 Skill 包，并仅为已选中的 Skill 注册 `read_skill_resource`；资源不能通过路径穿越或符号链接逃逸出包目录。真正的工具连接由运行时的 `RepositoryToolSuite`（`evoagent/agent/repository_tools.py`）、外部集成或插件提供，Skill 只声明“可以使用哪些已经存在的工具”。
 
 运行时流程如下：
 

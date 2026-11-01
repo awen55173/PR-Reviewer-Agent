@@ -1,6 +1,6 @@
 import unittest
 
-from evoagent.llm import parse_json_object
+from evoagent.agent.llm import parse_json_object
 
 
 class ParseJsonObjectTests(unittest.TestCase):

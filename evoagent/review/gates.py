@@ -2,8 +2,8 @@
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Tuple
 
-from .diff_parser import ParsedDiff
-from .models import Finding, Severity
+from ..core.diff_parser import ParsedDiff
+from ..core.models import Finding, Severity
 
 
 @dataclass

@@ -9,15 +9,15 @@ import threading
 import time
 from typing import Any, Dict, Iterable, List, Optional, Set
 
-from .diff_parser import ParsedDiff
+from ..core.diff_parser import ParsedDiff
 from .context_manager import ContextManager
-from .gates import FindingGate
-from .finding_identity import canonical_identity
+from ..review.gates import FindingGate
+from ..core.finding_identity import canonical_identity
 from .llm import JsonChatClient
-from .models import ComponentKind, Finding, Severity
-from .modes import component, resolve_mode
+from ..core.models import ComponentKind, Finding, Severity
+from ..core.modes import component, resolve_mode
 from .repository_tools import RepositoryToolSuite
-from .reviewer import LocalRuleReviewer, Reviewer
+from ..review.reviewer import LocalRuleReviewer, Reviewer
 from .runtime import AgentTool, RuntimeBudgetExceeded, ToolRegistry
 from .telemetry import ExecutionLedger
 

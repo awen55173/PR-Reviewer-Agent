@@ -6,11 +6,11 @@ import threading
 import uuid
 from typing import Any, Callable, Dict, Optional
 
-from .diff_parser import parse_unified_diff
-from .evolution import RegressionEvaluator
-from .reviewer import Reviewer
-from .skills import AgentSkill, SKILL_NAME
-from .store import utc_now
+from ..core.diff_parser import parse_unified_diff
+from .engine import RegressionEvaluator
+from ..review.reviewer import Reviewer
+from ..agent.skills import AgentSkill, SKILL_NAME
+from ..storage.store import utc_now
 
 
 ARTIFACT_SCHEMA_VERSION = 2
@@ -111,7 +111,7 @@ class AgentSkillReplayReviewer(Reviewer):
     """Replay a candidate through the product Lead/worker Skill runtime."""
 
     def __init__(self, artifact: dict, client, token_budget: int = 8000, time_budget_seconds: int = 60):
-        from .agentic_core import AgenticReviewer
+        from ..agent.agentic_core import AgenticReviewer
 
         self.skill = AgentSkill.from_artifact(artifact)
         self.name = "%s-agent-skill-replay" % self.skill.name

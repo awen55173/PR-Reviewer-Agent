@@ -2,33 +2,33 @@ import hashlib
 import uuid
 from typing import Any, Dict, Optional
 
-from .agentic_core import AgenticReviewer
-from .auth import AuthManager
-from .config import Settings
-from .context_manager import ContextManager
-from .evolution import EvolutionEngine
-from .evolution_v2 import RootCauseEvolutionGenerator
-from .fixer import SafeFixer
-from .patching import SuggestionOnlyFixer, VerifiedPatchFixer
-from .github import GitHubAppAuthenticator, GitHubClient
-from .harness import ReviewHarness
-from .metrics import metrics
-from .llm import JsonChatClient
-from .modes import RunMode
-from .memory import MemoryManager
-from .models import TaskState, TraceEvent
-from .observability import AlertManager, Observability
-from .postgres_store import create_store
-from .report import to_markdown
-from .reviewer import (
+from ..agent.agentic_core import AgenticReviewer
+from ..api.auth import AuthManager
+from ..core.config import Settings
+from ..agent.context_manager import ContextManager
+from ..evolution.engine import EvolutionEngine
+from ..evolution.evolution_v2 import RootCauseEvolutionGenerator
+from ..repair.fixer import SafeFixer
+from ..repair.patching import SuggestionOnlyFixer, VerifiedPatchFixer
+from ..integrations.github import GitHubAppAuthenticator, GitHubClient
+from ..agent.harness import ReviewHarness
+from ..integrations.metrics import metrics
+from ..agent.llm import JsonChatClient
+from ..core.modes import RunMode
+from ..agent.memory import MemoryManager
+from ..core.models import TaskState, TraceEvent
+from ..integrations.observability import AlertManager, Observability
+from ..storage.postgres_store import create_store
+from ..review.report import to_markdown
+from ..review.reviewer import (
     OpenAICompatibleReviewer, ReliabilityRuleReviewer, SecurityRuleReviewer,
 )
-from .skills import AgentSkill, SkillRegistry
-from .skill_evolution import AgentSkillReplayReviewer, SkillEvolutionEngine, validate_artifact
-from .store import utc_now
+from ..agent.skills import AgentSkill, SkillRegistry
+from ..evolution.skill_evolution import AgentSkillReplayReviewer, SkillEvolutionEngine, validate_artifact
+from ..storage.store import utc_now
 from .task_queue import PermanentTaskError, TaskQueue
 from .rollout import ReleaseManager
-from .verifier import RepairVerifier
+from ..repair.verifier import RepairVerifier
 
 
 class ReviewService:

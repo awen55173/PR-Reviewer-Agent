@@ -5,7 +5,7 @@ import threading
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
-from .models import ReviewReport, TaskState, TraceEvent
+from ..core.models import ReviewReport, TaskState, TraceEvent
 
 
 def utc_now() -> str:

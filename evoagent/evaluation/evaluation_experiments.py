@@ -7,25 +7,25 @@ import re
 import statistics
 from typing import Any, Callable, Dict, Iterable, List, Optional
 
-from .diff_parser import parse_unified_diff
+from ..core.diff_parser import parse_unified_diff
 from .evaluation_harness import FixtureRepairer, load_jsonl, one_to_one_match
 from .evaluation_v2 import (
     ProductionEvaluationHarness,
     paired_bootstrap_comparison,
     validate_real_dataset,
 )
-from .reviewer import CompositeReviewer, LocalRuleReviewer, Reviewer
-from .models import Finding, Severity
-from .review_rules import ContextRuleReviewer
-from .skill_evolution import SkillEvolutionEngine, validate_artifact
+from ..review.reviewer import CompositeReviewer, LocalRuleReviewer, Reviewer
+from ..core.models import Finding, Severity
+from ..review.review_rules import ContextRuleReviewer
+from ..evolution.skill_evolution import SkillEvolutionEngine, validate_artifact
 
 
 DEFAULT_CONTROLLED_DATASET = os.path.abspath(os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), "evaluation_data", "pr_diff_100.jsonl",
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "evaluation_data", "pr_diff_100.jsonl",
 ))
 if not os.path.exists(DEFAULT_CONTROLLED_DATASET):
     DEFAULT_CONTROLLED_DATASET = os.path.abspath(os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "pr_diff_100.jsonl",
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "pr_diff_100.jsonl",
     ))
 
 
